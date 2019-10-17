@@ -17,6 +17,14 @@
  * @param {ListNode} l2
  * @return {ListNode}
  */
+
+/**
+ * 设立一个表示进位的变量carried，建立一个新链表， 把输入的两个链表从头往后同时处理，每两个相加，将结果加上carried后的值作为一个新节点到新链表后面。
+ *
+    链表这种数据结构的特点和使用
+    用一个carried变量来实现进位的功能，每次相加之后计算carried，并用于下一位的计算
+ */
+
 var addTwoNumbers = function(l1, l2) {
   let dummyHead = new ListNode(0)
   let cur1 = l1

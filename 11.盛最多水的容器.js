@@ -9,6 +9,10 @@
  * @param {number[]} height
  * @return {number}
  */
+
+/**
+ * 双指针优化时间复杂度
+ */
 var maxArea = function(height) {
   if (!height || height.length <= 1) return 0
 
