@@ -21,6 +21,9 @@ if (s[i] === s[j] && dp[i+1][j-1]) {
  *
  * 如果一个字符串是回文串，那么在它左右分别加上一个相同的字符，那么它一定还是一个回文串
  * 如果一个字符串不是回文串，或者在回文串左右分别加不同的字符，得到的一定不是回文串
+ * 动态规划
+ * 我们可以用 dp[i][j] 表示 s 中从 i 到 j（包括 i 和 j）是否可以形成回文， 状态转移方程只是将上面的描述转化为代码即可：
+ * if(s[i] === s[j] && dp[i + 1][j - 1]) dp[i][j] = true
  */
 
 var longestPalindrome = function(s) {
@@ -30,15 +33,19 @@ var longestPalindrome = function(s) {
 
   const dp = []
 
+  // 倒着遍历简化操作， 这么做的原因是dp[i][..]依赖于dp[i + 1][..]
   for (let i = s.length - 1; i >= 0; i--) {
     dp[i] = []
 
-    for (let j = i; j < s.length; j++) {
+    for (let j = i;j < s.length;j++) {
       if (j - i === 0) dp[i][j] = true
+      // special case 1
       else if (j - i === 1 && s[i] === s[j]) dp[i][j] = true
+      // special case 2 => state transition
       else if (s[i] === s[j] && dp[i + 1][j - 1]) dp[i][j] = true
 
       if (dp[i][j] && j - i + 1 > res.length) {
+        // update res
         res = s.slice(i, j + 1)
       }
     }
