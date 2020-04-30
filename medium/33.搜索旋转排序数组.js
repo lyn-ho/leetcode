@@ -39,8 +39,6 @@ var search = function(nums, target) {
     // ️⚠️注意这里的等号
     if (nums[mid] >= nums[start]) {
       //target 在 [start, mid] 之间
-
-      // 其实target不可能等于nums[mid]， 但是为了对称，我还是加上了等号
       if (target >= nums[start] && target <= nums[mid]) {
         end = mid - 1
       } else {
