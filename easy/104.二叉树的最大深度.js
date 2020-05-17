@@ -24,6 +24,13 @@
 
     树的基本操作- 遍历 - 层次遍历（BFS）
  */
+// var maxDepth = function(root) {
+//   if (!root) return 0
+
+//   let left = maxDepth(root.left)
+//   let right = maxDepth(root.right)
+//   return Math.max(left, right) + 1
+// }
 var maxDepth = function(root) {
   if (!root) return 0
   if (!root.left && !root.right) return 1
@@ -41,11 +48,8 @@ var maxDepth = function(root) {
       continue
     }
 
-    const l = cur.left
-    const r = cur.right
-
-    if (l) queue.push(l)
-    if (r) queue.push(r)
+    cur.left && queue.push(cur.left)
+    cur.right && queue.push(cur.right)
   }
 
   return depth
