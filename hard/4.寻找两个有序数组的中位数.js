@@ -20,29 +20,58 @@
  * 如果j移动到B数组最后，那么直接把剩下的所有A依次放入新的数组中.
  * 如果i移动到A数组最后，那么直接把剩下的所有B依次放入新的数组中.
  */
-var findMedianSortedArrays = function(nums1, nums2) {
-  const merged = []
-  let i = 0
-  let j = 0
+var findMedianSortedArrays = function (nums1, nums2) {
+  if (nums1.length > nums2.length) {
+    [nums1, nums2] = [nums2, nums1]
+  }
 
-  while (i < nums1.length && j < nums2.length) {
-    if (nums1[i] < nums2[j]) {
-      merged.push(nums1[i++])
+  const len1 = nums1.length
+  const len2 = nums2.length
+
+  let low = 0
+  let high = len1
+
+  while (low <= high) {
+    const i = low + Math.floor((high - low) / 2)
+    const j = Math.floor((len1 + len2 + 1) / 2) - i
+
+    const maxLeftA = i === 0 ? -Infinity : nums1[i - 1]
+    const minRightA = i === len1 ? Infinity : nums1[i]
+    const maxLeftB = j === 0 ? -Infinity : nums2[j - 1]
+    const minRightB = j === len2 ? Infinity : nums2[j]
+
+    if (maxLeftA <= minRightB && minRightA >= maxLeftB) {
+      return (len1 + len2) % 2 === 1 ? Math.max(maxLeftA, maxLeftB) : (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB)) / 2
+    } else if (maxLeftA > minRightB) {
+      high = i - 1
     } else {
-      merged.push(nums2[j++])
+      low = low + 1
     }
   }
-
-  while (i < nums1.length) {
-    merged.push(nums1[i++])
-  }
-
-  while (j < nums2.length) {
-    merged.push(nums2[j++])
-  }
-
-  const len = merged.length
-  return len % 2 === 1 ? merged[Math.floor(len / 2)] : (merged[len / 2] + merged[len / 2 - 1]) / 2
 };
+// var findMedianSortedArrays = function(nums1, nums2) {
+//   const merged = []
+//   let i = 0
+//   let j = 0
+
+//   while (i < nums1.length && j < nums2.length) {
+//     if (nums1[i] < nums2[j]) {
+//       merged.push(nums1[i++])
+//     } else {
+//       merged.push(nums2[j++])
+//     }
+//   }
+
+//   while (i < nums1.length) {
+//     merged.push(nums1[i++])
+//   }
+
+//   while (j < nums2.length) {
+//     merged.push(nums2[j++])
+//   }
+
+//   const len = merged.length
+//   return len % 2 === 1 ? merged[Math.floor(len / 2)] : (merged[len / 2] + merged[len / 2 - 1]) / 2
+// };
 // @lc code=end
 
